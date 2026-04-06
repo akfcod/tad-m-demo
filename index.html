@@ -177,7 +177,10 @@
                 document.querySelectorAll('.price-translate').forEach(el => {
                     const euPrice = el.getAttribute('data-en');
                     const tlPrice = el.getAttribute('data-tr');
-                    if (euPrice && tlPrice) el.innerText = `${euPrice} (${tlPrice})`; 
+                    // Prevent translation logic from wiping out real prices if data is missing
+                    if (euPrice && tlPrice && euPrice !== "undefined") {
+                        el.innerText = `${euPrice} (${tlPrice})`;
+                    }
                 });
                 const addrInput = document.getElementById('order-address');
                 if(addrInput) addrInput.placeholder = "Your address and notes... (Please provide full details)";
@@ -265,76 +268,97 @@
         }
 
         // --- GOOGLE SHEETS DYNAMIC LOADER ---
-        // Helper function to safely convert Turkish characters to standard English letters for the HTML ID tags
+        // Helper to safely format categories into HTML IDs (e.g., "Çorbalar" -> "corbalar")
         function makeSafeId(str) {
             return str.toLowerCase().replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/[^a-z0-9]/g, '');
         }
 
         const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRyawZm1sQhJyyLVSxVY8xyMQQG3Dbxpbr7gQHl1UPGGSSezid8ETF_pKcgX67K34kHUpPUhn5u5b4Z/pub?output=csv"; 
 
-        async function loadMenu() {
+    async function loadMenu() {
             const menuContainer = document.getElementById('menu-section-container');
+            
+            // THE MINI-DICTIONARY: Translates categories on the fly
+            const categoryDictionary = {
+                "Dürüm Menüler": "Wraps",
+                "Çorbalar": "Soups",
+                "Kebaplar": "Kebabs",
+                "Izgaralar": "Grills",
+                "Dönerler": "Döner",
+                "Fırın Ürünleri": "Bakery",
+                "İçecekler": "Beverages"
+            };
+
             try {
                 const response = await fetch(sheetURL);
                 const data = await response.text();
                 
-                // Clean invisble characters and split rows
                 const rows = data.replace(/\r/g, '').split('\n').slice(1); 
                 const groupedMenu = {};
 
                 rows.forEach(row => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if(cols.length < 7) return;
+                    if(cols.length < 6) return;
 
                     const cat = cols[0]?.replace(/"/g, "")?.trim();
                     const nameTR = cols[1]?.replace(/"/g, "")?.trim();
                     const nameEN = cols[2]?.replace(/"/g, "")?.trim();
                     const descTR = cols[3]?.replace(/"/g, "")?.trim();
                     const descEN = cols[4]?.replace(/"/g, "")?.trim();
-                    const priceEU = cols[7]?.replace(/"/g, "")?.trim();
-                    const imgURL = cols[8]?.replace(/"/g, "")?.trim();
 
-                    // FIXED: Strip everything except pure numbers to prevent NaN errors
-                    const rawPrice = cols[6]?.replace(/[^0-9]/g, "");
-                    const priceTL = parseInt(rawPrice);
+                    let rawPrice, priceEU, imgURL;
+
+                    if (cols[7] && cols[7].includes("http")) {
+                        rawPrice = cols[5];
+                        priceEU = cols[6]?.replace(/"/g, "")?.trim();
+                        imgURL = cols[7]?.replace(/"/g, "")?.trim();
+                    } else if (cols[8] && cols[8].includes("http")) {
+                        rawPrice = cols[6];
+                        priceEU = cols[7]?.replace(/"/g, "")?.trim();
+                        imgURL = cols[8]?.replace(/"/g, "")?.trim();
+                    } else {
+                        rawPrice = cols[5] || "0";
+                    }
+
+                    const priceTL = parseInt(rawPrice?.replace(/[^0-9]/g, ""));
 
                     if (!nameTR || isNaN(priceTL)) return;
 
-                    // Group items by category
                     if (!groupedMenu[cat]) groupedMenu[cat] = [];
                     groupedMenu[cat].push({nameTR, nameEN, descTR, descEN, priceTL, priceEU, imgURL});
                 });
 
-                // 1. Build the Sticky Category Navigation dynamically based on the sheet
-                let navHTML = `
-                <div class="sticky top-[72px] z-40 bg-gray-100 py-4 mb-8 flex overflow-x-auto gap-3 justify-start lg:justify-center px-2 pb-4 border-b border-gray-200 shadow-sm rounded-lg" style="scrollbar-width: none;">`;
-                
+                // 1. Build Sticky Nav with Translations
+                let navHTML = `<div class="sticky top-[72px] z-40 bg-gray-100 py-4 mb-8 flex overflow-x-auto gap-3 justify-start lg:justify-center px-2 pb-4 border-b border-gray-200 shadow-sm rounded-lg" style="scrollbar-width: none;">`;
                 for (const category of Object.keys(groupedMenu)) {
                     if(!category) continue;
                     const catId = makeSafeId(category);
-                    navHTML += `<a href="#cat-${catId}" class="whitespace-nowrap bg-white border border-orange-200 px-5 py-2 rounded-full text-orange-600 font-bold hover:bg-orange-600 hover:text-white transition shadow-sm">${category}</a>`;
+                    const catEN = categoryDictionary[category] || category; // Uses dictionary
+                    
+                    // Added translate class and data-en
+                    navHTML += `<a href="#cat-${catId}" class="whitespace-nowrap bg-white border border-orange-200 px-5 py-2 rounded-full text-orange-600 font-bold hover:bg-orange-600 hover:text-white transition shadow-sm translate" data-en="${catEN}">${category}</a>`;
                 }
                 navHTML += `</div>`;
 
-                // 2. Build the Food Grids
+                // 2. Build Menus with Translations
                 let contentHTML = ``;
                 for (const [category, items] of Object.entries(groupedMenu)) {
                     if(!category) continue;
                     const catId = makeSafeId(category);
+                    const catEN = categoryDictionary[category] || category;
                     
+                    // Added translate class and data-en to the category Title
                     contentHTML += `
                     <div id="cat-${catId}" class="mb-16 category-section pt-10 -mt-10">
-                        <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8">${category}</h3>
+                        <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8 translate" data-en="${catEN}">${category}</h3>
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     `;
 
                     items.forEach(item => {
-                        // Safe image fallback
                         const finalImg = (item.imgURL && item.imgURL.length > 10 && item.imgURL.includes("http")) 
                             ? item.imgURL 
                             : "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80";
                         
-                        // Safe Add to Cart string
                         const safeNameForCart = item.nameTR.replace(/'/g, "\\'");
 
                         contentHTML += `
@@ -358,10 +382,70 @@
                     contentHTML += `</div></div>`;
                 }
 
-                // Inject it all
                 menuContainer.innerHTML = navHTML + contentHTML;
+                
+                // Force translations AFTER everything is built on screen
+                applyTranslations();
 
-                // FORCE the translations to run AFTER the menu is built
+            } catch (e) {
+                console.error("Google Sheets Error: ", e);
+                menuContainer.innerHTML = "<p class='text-red-500 font-bold'>Sistem Hatası: Menü Yüklenemedi.</p>";
+            }
+        }
+
+                // 1. Build Sticky Nav
+                let navHTML = `<div class="sticky top-[72px] z-40 bg-gray-100 py-4 mb-8 flex overflow-x-auto gap-3 justify-start lg:justify-center px-2 pb-4 border-b border-gray-200 shadow-sm rounded-lg" style="scrollbar-width: none;">`;
+                for (const category of Object.keys(groupedMenu)) {
+                    if(!category) continue;
+                    const catId = makeSafeId(category);
+                    navHTML += `<a href="#cat-${catId}" class="whitespace-nowrap bg-white border border-orange-200 px-5 py-2 rounded-full text-orange-600 font-bold hover:bg-orange-600 hover:text-white transition shadow-sm">${category}</a>`;
+                }
+                navHTML += `</div>`;
+
+                // 2. Build Menus
+                let contentHTML = ``;
+                for (const [category, items] of Object.entries(groupedMenu)) {
+                    if(!category) continue;
+                    const catId = makeSafeId(category);
+                    
+                    contentHTML += `
+                    <div id="cat-${catId}" class="mb-16 category-section pt-10 -mt-10">
+                        <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8">${category}</h3>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    `;
+
+                    items.forEach(item => {
+                        // High quality fallback image just in case
+                        const finalImg = (item.imgURL && item.imgURL.length > 10 && item.imgURL.includes("http")) 
+                            ? item.imgURL 
+                            : "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80";
+                        
+                        const safeNameForCart = item.nameTR.replace(/'/g, "\\'");
+
+                        contentHTML += `
+                            <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
+                                <img src="${finalImg}" class="h-48 w-full object-cover">
+                                <div class="p-5 flex flex-col flex-1 justify-between">
+                                    <div>
+                                        <h4 class="font-bold text-lg translate" data-en="${item.nameEN}">${item.nameTR}</h4>
+                                        <p class="text-gray-500 text-sm mt-2 translate" data-en="${item.descEN}">${item.descTR}</p>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-5 pt-4 border-t">
+                                        <span class="font-extrabold text-orange-600 text-xl price-translate" data-en="${item.priceEU}" data-tr="${item.priceTL} ₺">${item.priceTL} ₺</span>
+                                        <button onclick="addToCart('${safeNameForCart}', ${item.priceTL})" class="bg-orange-100 text-orange-600 px-4 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">
+                                            Ekle
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    contentHTML += `</div></div>`;
+                }
+
+                menuContainer.innerHTML = navHTML + contentHTML;
+                
+                // Force translations AFTER everything is built on screen
                 applyTranslations();
 
             } catch (e) {
@@ -370,9 +454,7 @@
             }
         }
         
-        // Start fetching data immediately
         loadMenu();
-        // Run initial translation for static parts of the site
         applyTranslations();
     </script>
 </body>
