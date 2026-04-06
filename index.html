@@ -61,19 +61,78 @@
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80" alt="Burger" class="h-56 w-full object-cover">
-                    <div class="p-6 flex flex-col flex-1">
-                        <h4 class="font-bold text-xl mb-2 translate" data-en="Memoli Special Burger">Memoli Özel Burger</h4>
-                        <p class="text-gray-500 text-sm mb-4 flex-1 translate" data-en="180g beef patty, cheddar cheese, caramelized onions, served with fries.">180gr dana köfte, cheddar peyniri, karamelize soğan ve patates kızartması ile.</p>
-                        
-                        <div class="flex justify-between items-center mt-4 border-t pt-4">
-                            <span class="text-gray-900 font-extrabold text-2xl price-translate" data-en="€7" data-tr="220 ₺">220 ₺</span>
-                            <button onclick="addToCart('Memoli Özel Burger', 220)" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">Ekle</button>
-                        </div>
+            <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1665660098485-802c6b412bf9?auto=format&fit=crop&w=600&q=80" alt="Döner Dürüm" class="h-56 w-full object-cover">
+                <div class="p-6 flex flex-col flex-1">
+                    <h4 class="font-bold text-xl mb-2 translate" data-en="Meat Döner Wrap Combo">Et Döner Dürüm Menü</h4>
+                    <p class="text-gray-500 text-sm mb-4 flex-1 translate" data-en="150g Meat Döner wrap served with 20cl Ayran.">Et Döner Dürüm (150 gr.) + Ayran (20 cl.)</p>
+                    <div class="flex justify-between items-center mt-4 border-t pt-4">
+                        <span class="text-gray-900 font-extrabold text-2xl price-translate" data-en="€8.50" data-tr="300 ₺">300 ₺</span>
+                        <button onclick="addToCart('Et Döner Dürüm Menü', 300)" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">Ekle</button>
                     </div>
                 </div>
+            </div>
 
+            <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1649318182962-d98c39e2f9d1?auto=format&fit=crop&w=600&q=80" alt="Sarma Beyti" class="h-56 w-full object-cover">
+                <div class="p-6 flex flex-col flex-1">
+                    <h4 class="font-bold text-xl mb-2 translate" data-en="Sarma Beyti Kebab">Sarma Beyti (300 gr.)</h4>
+                    <p class="text-gray-500 text-sm mb-4 flex-1 translate" data-en="Wrapped kebab served with yogurt, french fries, and rice.">Yoğurt, patates kızartması, pilav ile servis edilir.</p>
+                    <div class="flex justify-between items-center mt-4 border-t pt-4">
+                        <span class="text-gray-900 font-extrabold text-2xl price-translate" data-en="€20.00" data-tr="700 ₺">700 ₺</span>
+                        <button onclick="addToCart('Sarma Beyti', 700)" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">Ekle</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" alt="Karışık Kebap" class="h-56 w-full object-cover">
+                <div class="p-6 flex flex-col flex-1">
+                    <h4 class="font-bold text-xl mb-2 translate" data-en="Mixed Kebab Platter">Karışık Kebap</h4>
+                    <p class="text-gray-500 text-sm mb-4 flex-1 translate" data-en="Adana kebab, chicken shish, beef shish, meat & chicken döner, fries, rice, and salad.">Adana kebap, tavuk şiş, et şiş, et/tavuk döner, patates kızartması, pilav, salata.</p>
+                    <div class="flex justify-between items-center mt-4 border-t pt-4">
+                        <span class="text-gray-900 font-extrabold text-2xl price-translate" data-en="€28.50" data-tr="1.000 ₺">1.000 ₺</span>
+                        <button onclick="addToCart('Karışık Kebap', 1000)" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">Ekle</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" alt="Karışık Pide" class="h-56 w-full object-cover">
+                <div class="p-6 flex flex-col flex-1">
+                    <h4 class="font-bold text-xl mb-2 translate" data-en="Mixed Pide">Karışık Pide</h4>
+                    <p class="text-gray-500 text-sm mb-4 flex-1 translate" data-en="Traditional flatbread with minced meat, kashar cheese, beef cubes, and sujuk. Served with salad.">Kıyma, kaşar peyniri, kuşbaşı, sucuk. Salata ile servis edilir.</p>
+                    <div class="flex justify-between items-center mt-4 border-t pt-4">
+                        <span class="text-gray-900 font-extrabold text-2xl price-translate" data-en="€11.50" data-tr="400 ₺">400 ₺</span>
+                        <button onclick="addToCart('Karışık Pide', 400)" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">Ekle</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=80" alt="Lahmacun" class="h-56 w-full object-cover">
+                <div class="p-6 flex flex-col flex-1">
+                    <h4 class="font-bold text-xl mb-2 translate" data-en="Lahmacun">Lahmacun</h4>
+                    <p class="text-gray-500 text-sm mb-4 flex-1 translate" data-en="Thin, crispy flatbread topped with minced meat, vegetables, and herbs.">İnce hamur üzerine özel harmanlanmış kıyma ve baharatlar.</p>
+                    <div class="flex justify-between items-center mt-4 border-t pt-4">
+                        <span class="text-gray-900 font-extrabold text-2xl price-translate" data-en="€4.80" data-tr="170 ₺">170 ₺</span>
+                        <button onclick="addToCart('Lahmacun', 170)" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">Ekle</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" alt="Mercimek Çorbası" class="h-56 w-full object-cover">
+                <div class="p-6 flex flex-col flex-1">
+                    <h4 class="font-bold text-xl mb-2 translate" data-en="Lentil Soup">Mercimek Çorbası</h4>
+                    <p class="text-gray-500 text-sm mb-4 flex-1 translate" data-en="Traditional lentil soup for a single serving.">Tek kişilik özel süzme mercimek çorbası.</p>
+                    <div class="flex justify-between items-center mt-4 border-t pt-4">
+                        <span class="text-gray-900 font-extrabold text-2xl price-translate" data-en="€8.50" data-tr="300 ₺">300 ₺</span>
+                        <button onclick="addToCart('Mercimek Çorbası', 300)" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition translate" data-en="Add">Ekle</button>
+                    </div>
+                </div>
+            </div>
+            
                 <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
                     <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80" alt="Izgara Köfte" class="h-56 w-full object-cover">
                     <div class="p-6 flex flex-col flex-1">
@@ -261,9 +320,6 @@
             // Open WhatsApp
             window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
         }
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
