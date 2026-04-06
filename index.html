@@ -126,18 +126,8 @@
                     <span><span id="cart-total">0</span> ₺</span>
                 </div>
                 
-                <label class="block text-gray-700 font-bold mb-2 translate" data-en="Select Delivery Area:">Teslimat Bölgesi Seçin:</label>
-                <select id="order-zone" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 focus:outline-none focus:border-orange-500 bg-white">
-                    <option value="" disabled selected class="translate" data-en="-- Select your neighborhood --">-- Mahalle/Bölge Seçin --</option>
-                    <option value="DAÜ Kampüs İçi">DAÜ Kampüs İçi</option>
-                    <option value="Salamis Yolu">Salamis Yolu</option>
-                    <option value="Suriçi (Kaleiçi)">Suriçi (Kaleiçi)</option>
-                    <option value="Sakarya Mahallesi">Sakarya Mahallesi</option>
-                    <option value="Karakol Mahallesi">Karakol Mahallesi</option>
-                </select>
-
                 <label class="block text-gray-700 font-bold mb-2 translate" data-en="Full Address Details:">Açık Adres ve Notlar:</label>
-                <textarea id="order-address" class="w-full border-2 border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-orange-500 transition" placeholder="Sokak, Apartman, Daire No..." rows="2"></textarea>
+                <textarea id="order-address" class="w-full border-2 border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-orange-500 transition" placeholder="Sokak, Apartman, Daire No, Kat..." rows="3"></textarea>
             </div>
             
             <button onclick="sendWhatsAppOrder()" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-bold py-4 rounded-xl shadow-md transition flex justify-center items-center text-lg">
@@ -238,29 +228,15 @@
             const userLang = navigator.language || navigator.userLanguage;
             if (cart.length === 0) return alert(userLang.startsWith('tr') ? 'Sepetiniz boş!' : 'Your cart is empty!');
             
-            const zone = document.getElementById('order-zone').value;
             const address = document.getElementById('order-address').value;
             
-            if (!zone) return alert(userLang.startsWith('tr') ? 'Lütfen teslimat bölgesi seçiniz.' : 'Please select a delivery area.');
             if (!address.trim()) return alert(userLang.startsWith('tr') ? 'Lütfen açık adresinizi yazınız.' : 'Please enter your full address details.');
 
             let total = cart.reduce((sum, item) => sum + item.price, 0);
 
-            const zoneMinimums = {
-                "DAÜ Kampüs İçi": 150, "Salamis Yolu": 200, "Suriçi (Kaleiçi)": 300, 
-                "Sakarya Mahallesi": 200, "Karakol Mahallesi": 200
-            };
-            const minRequired = zoneMinimums[zone];
-
-            if (total < minRequired) {
-                return alert(userLang.startsWith('tr') 
-                    ? `Seçtiğiniz bölge (${zone}) için minimum sipariş tutarı ${minRequired} ₺'dir. Sepetiniz: ${total} ₺` 
-                    : `The minimum order for ${zone} is ${minRequired} ₺. Your cart: ${total} ₺`);
-            }
-
             let orderText = "🍔 *YENİ SİPARİŞ* (Websiteden)\n\n";
             cart.forEach(item => orderText += `▪️ ${item.name} - ${item.price} ₺\n`);
-            orderText += `\n💰 *TOPLAM: ${total} ₺*\n\n📍 *Bölge:* ${zone}\n🏠 *Adres/Not:* ${address}`;
+            orderText += `\n💰 *TOPLAM: ${total} ₺*\n\n🏠 *Adres/Not:* ${address}`;
 
             const phone = "905338656909";
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(orderText)}`, '_blank');
@@ -303,18 +279,21 @@
                     const descTR = cols[3]?.replace(/"/g, "")?.trim();
                     const descEN = cols[4]?.replace(/"/g, "")?.trim();
 
-                    let rawPrice, priceEU, imgURL;
+                    let rawPrice = cols[5]; 
+                    let priceEU = cols[6]?.replace(/"/g, "")?.trim();
+                    let imgURL = "";
 
-                    if (cols[7] && cols[7].includes("http")) {
-                        rawPrice = cols[5];
-                        priceEU = cols[6]?.replace(/"/g, "")?.trim();
-                        imgURL = cols[7]?.replace(/"/g, "")?.trim();
-                    } else if (cols[8] && cols[8].includes("http")) {
-                        rawPrice = cols[6];
-                        priceEU = cols[7]?.replace(/"/g, "")?.trim();
-                        imgURL = cols[8]?.replace(/"/g, "")?.trim();
-                    } else {
-                        rawPrice = cols[5] || "0";
+                    // IMAGE HUNTER: Scans every column from 5 onwards to find the "http" link
+                    for (let i = 5; i < cols.length; i++) {
+                        if (cols[i] && cols[i].includes("http")) {
+                            imgURL = cols[i].replace(/"/g, "").trim();
+                            // Re-align prices based on where the image was found
+                            if (i >= 7) {
+                                rawPrice = cols[i-2];
+                                priceEU = cols[i-1]?.replace(/"/g, "")?.trim();
+                            }
+                            break;
+                        }
                     }
 
                     const priceTL = parseInt(rawPrice?.replace(/[^0-9]/g, ""));
