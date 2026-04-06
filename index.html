@@ -146,65 +146,62 @@
     <script>
         // --- HARDCODED IMAGE DICTIONARY ---
         // This links the exact Turkish food name to its unbreakable image URL.
-      const imageDictionary = {
-            // UPDATED Dürüm Menüler
+ // --- HARDCODED IMAGE DICTIONARY ---
+        const imageDictionary = {
+            // Dürüm Menüler
             "Adana Dürüm Menü": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80",
             "Urfa Dürüm Menü": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80",
-            "Tavuk Şiş Dürüm Menü": "https://images.unsplash.com/photo-1598511757337-fe2cafc31ba0?auto=format&fit=crop&w=600&q=80",
-            "Kuzu Şiş Dürüm Menü": "https://images.unsplash.com/photo-1628294895950-9805252327bc?auto=format&fit=crop&w=600&q=80",
+            "Tavuk Şiş Dürüm Menü": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Durum_Kebab.jpg/800px-Durum_Kebab.jpg",
+            "Kuzu Şiş Dürüm Menü": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Durum_Kebab.jpg/800px-Durum_Kebab.jpg",
             "Tavuk Döner Dürüm Menü": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "Et Döner Dürüm Menü": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "Karışık Döner Dürüm Menü": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
-            "Ciğer Dürüm": "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=600&q=80",
+            "Ciğer Dürüm": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Durum_Kebab.jpg/800px-Durum_Kebab.jpg",
 
-            // Soup Group (Consistent Look)
+            // Çorbalar
             "Tavuk Çorbası": "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80",
             "Mercimek Çorbası": "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80",
             "Kelle Paça Çorbası": "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80",
             "Beyran Çorbası": "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80",
 
-            // Kebab plates
+            // Kebaplar
             "Adana Kebap (300 gr.)": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Urfa Kebap (300 gr.)": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Sarma Beyti (300 gr.)": "https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?auto=format&fit=crop&w=600&q=80",
             "Karışık Kebap": "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80",
-            "Ciğer Şiş": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80", // Grouped meat look
+            "Ciğer Şiş": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shish_kebab_and_rice.jpg/800px-Shish_kebab_and_rice.jpg",
 
-            // Grill Plates (UPDATED Chicken/Lamb)
-            "Tavuk Şiş (300 gr.)": "https://images.unsplash.com/photo-1626804475297-4160aeea1a52?auto=format&fit=crop&w=600&q=80",
-            "Kuzu Şiş (300 gr.)": "https://images.unsplash.com/photo-1628143247473-1f1fb6b2b516?auto=format&fit=crop&w=600&q=80",
+            // Izgaralar
+            "Tavuk Şiş (300 gr.)": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shish_kebab_and_rice.jpg/800px-Shish_kebab_and_rice.jpg",
             "Tavuk Kanat (7 Adet)": "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=600&q=80",
-            "Izgara Ciğer": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80", // Grouped meat look
+            "Kuzu Şiş (300 gr.)": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shish_kebab_and_rice.jpg/800px-Shish_kebab_and_rice.jpg",
+            "Izgara Ciğer": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
 
-            // Döner Plates
+            // Dönerler
             "Tavuk Döner (170 gr.)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "Et Döner (170 gr.)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "Karışık Döner (170 gr.)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
-
-            // UPDATED Iskender Group
-            "İskender (Tavuk Dönerden)": "https://images.unsplash.com/photo-1647891789649-1662a6d71b3e?auto=format&fit=crop&w=600&q=80",
-            "İskender (Et Dönerden)": "https://images.unsplash.com/photo-1647891789649-1662a6d71b3e?auto=format&fit=crop&w=600&q=80",
-            "Karışık İskender (170 gr.)": "https://images.unsplash.com/photo-1647891789649-1662a6d71b3e?auto=format&fit=crop&w=600&q=80",
-
-            // Pide Group (Consistent Look)
+            "İskender (Tavuk Dönerden)": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Iskender_kebap.jpg/800px-Iskender_kebap.jpg",
+            "İskender (Et Dönerden)": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Iskender_kebap.jpg/800px-Iskender_kebap.jpg",
+            "Karışık İskender (170 gr.)": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Iskender_kebap.jpg/800px-Iskender_kebap.jpg",
             "Kıbrıs pidesinde Karışık Döner": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Kıbrıs Pidesinde Et Döner": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Kıbrıs Pidesinde Tavuk Döner": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
+
+            // Fırın Ürünleri
+            "Lahmacun": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Lahmacun_%28Turkish_pizza%29.jpg/800px-Lahmacun_%28Turkish_pizza%29.jpg",
             "Kaşarlı Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Kıymalı Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Hellim Peynirli Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Kuşbaşılı Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Karışık Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
 
-            // UPDATED Bakery
-            "Lahmacun": "https://images.unsplash.com/photo-1634710186835-08e1697a82c6?auto=format&fit=crop&w=600&q=80",
-
-            // Drinks Group 
+            // İçecekler
             "Pepsi (33 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
             "Pepsi Light (33 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
             "Pepsi Max (33 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
             "Yedigün (33 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
-            "Ayran (20 cl.)": "https://images.unsplash.com/photo-1616851226107-7977a456bd31?auto=format&fit=crop&w=600&q=80",
+            "Ayran (20 cl.)": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Ayran_in_glass.jpg/800px-Ayran_in_glass.jpg",
             "Soda (20 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
             "Su": "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80",
             "Pepsi (1 L.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
