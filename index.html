@@ -14,7 +14,6 @@
             background-position: center;
         }
         html { scroll-behavior: smooth; }
-        /* This prevents the sticky menu from covering the titles when clicked */
         .category-section { scroll-margin-top: 140px; } 
     </style>
 </head>
@@ -23,14 +22,26 @@
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-orange-600">TADIM / MEMOLİ</div>
-            <div class="hidden md:flex space-x-8 font-medium">
+            
+            <div class="hidden md:flex space-x-8 font-medium items-center">
                 <a href="#about" class="hover:text-orange-600 transition translate" data-en="About Us">Hakkımızda</a>
                 <a href="#menu" class="hover:text-orange-600 transition translate" data-en="Menu">Menü</a>
                 <a href="#contact" class="hover:text-orange-600 transition translate" data-en="Contact">İletişim</a>
+                <a href="tel:+905338656909" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-full hover:bg-orange-200 transition font-bold flex items-center">
+                    <i class="fas fa-phone-alt mr-2"></i> <span class="translate" data-en="Call">Ara</span>
+                </a>
             </div>
-            <a href="tel:+905338656909" class="bg-gray-100 text-gray-800 px-5 py-2 rounded-full hover:bg-gray-200 transition font-bold flex items-center">
-                <i class="fas fa-phone-alt mr-2 text-orange-600"></i> <span class="translate" data-en="Call">Ara</span>
-            </a>
+
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-800 text-2xl focus:outline-none hover:text-orange-600 transition">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-6 py-4 flex-col space-y-4 font-medium shadow-inner">
+            <a href="#about" onclick="toggleMobileMenu()" class="block hover:text-orange-600 translate" data-en="About Us">Hakkımızda</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block hover:text-orange-600 translate" data-en="Menu">Menü</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block hover:text-orange-600 translate" data-en="Contact">İletişim</a>
+            <a href="tel:+905338656909" class="block text-orange-600 font-bold"><i class="fas fa-phone-alt mr-2"></i>+90 533 865 69 09</a>
         </div>
     </nav>
 
@@ -68,7 +79,7 @@
                 <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8 translate" data-en="Combo Menus (Wraps)">Dürüm Menüler</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Adana Wrap Menu">Adana Dürüm Menü</h4>
@@ -81,7 +92,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Urfa Wrap Menu">Urfa Dürüm Menü</h4>
@@ -94,7 +105,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Chicken Shish Wrap Menu">Tavuk Şiş Dürüm Menü</h4>
@@ -107,7 +118,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Lamb Shish Wrap Menu">Kuzu Şiş Dürüm Menü</h4>
@@ -120,7 +131,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1665660098485-802c6b412bf9?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Chicken Döner Wrap Menu">Tavuk Döner Dürüm Menü</h4>
@@ -133,7 +144,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1665660098485-802c6b412bf9?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Meat Döner Wrap Menu">Et Döner Dürüm Menü</h4>
@@ -146,7 +157,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1665660098485-802c6b412bf9?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Mixed Döner Wrap Menu">Karışık Döner Dürüm Menü</h4>
@@ -159,7 +170,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1649141011116-43f114675549?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Liver Wrap">Ciğer Dürüm</h4>
@@ -178,7 +189,7 @@
                 <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8 translate" data-en="Soups">Çorbalar</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
                         <div class="p-4">
                             <h4 class="font-bold translate" data-en="Chicken Soup">Tavuk Çorbası</h4>
                             <p class="text-gray-500 text-xs mb-3 translate" data-en="Single serving">Tek kişilik</p>
@@ -189,7 +200,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
                         <div class="p-4">
                             <h4 class="font-bold translate" data-en="Lentil Soup">Mercimek Çorbası</h4>
                             <p class="text-gray-500 text-xs mb-3 translate" data-en="Single serving">Tek kişilik</p>
@@ -200,7 +211,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
                         <div class="p-4">
                             <h4 class="font-bold translate" data-en="Kelle Paça Soup">Kelle Paça Çorbası</h4>
                             <p class="text-gray-500 text-xs mb-3 translate" data-en="Olives, arugula, lemon">Zeytin, roka, limon ile</p>
@@ -211,7 +222,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" class="h-32 w-full object-cover">
                         <div class="p-4">
                             <h4 class="font-bold translate" data-en="Beyran Soup">Beyran Çorbası</h4>
                             <p class="text-gray-500 text-xs mb-3 translate" data-en="Olives, arugula, parsley, lemon">Zeytin, roka, maydanoz, limon ile</p>
@@ -254,7 +265,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1649318182962-d98c39e2f9d1?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Sarma Beyti (300 gr.)">Sarma Beyti (300 gr.)</h4>
@@ -267,7 +278,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Mixed Kebab">Karışık Kebap</h4>
@@ -280,7 +291,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1649141011116-43f114675549?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Liver Shish">Ciğer Şiş</h4>
@@ -299,7 +310,7 @@
                 <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8 translate" data-en="Grills">Izgaralar</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold translate" data-en="Chicken Shish (300 gr.)">Tavuk Şiş (300 gr.)</h4>
@@ -325,7 +336,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold translate" data-en="Lamb Shish (300 gr.)">Kuzu Şiş (300 gr.)</h4>
@@ -338,7 +349,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1649141011116-43f114675549?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold translate" data-en="Grilled Liver">Izgara Ciğer</h4>
@@ -357,7 +368,7 @@
                 <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8 translate" data-en="Döner">Dönerler</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1665660098485-802c6b412bf9?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Chicken Döner (170 gr.)">Tavuk Döner (170 gr.)</h4>
@@ -369,7 +380,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1665660098485-802c6b412bf9?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Meat Döner (170 gr.)">Et Döner (170 gr.)</h4>
@@ -381,7 +392,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1665660098485-802c6b412bf9?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Mixed Döner (170 gr.)">Karışık Döner (170 gr.)</h4>
@@ -393,7 +404,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1610440042657-6dd2c1995a34?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Iskender (Chicken Döner)">İskender (Tavuk Dönerden)</h4>
@@ -405,7 +416,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1610440042657-6dd2c1995a34?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Iskender (Meat Döner)">İskender (Et Dönerden)</h4>
@@ -417,7 +428,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1610440042657-6dd2c1995a34?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Mixed Iskender">Karışık İskender (170 gr.)</h4>
@@ -429,7 +440,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Mixed Döner (Pide)">Kıbrıs pidesinde Karışık Döner</h4>
@@ -441,7 +452,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Meat Döner (Pide)">Kıbrıs Pidesinde Et Döner</h4>
@@ -453,7 +464,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-40 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Chicken Döner (Pide)">Kıbrıs Pidesinde Tavuk Döner</h4>
@@ -471,7 +482,7 @@
                 <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8 translate" data-en="Bakery">Fırın Ürünleri</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Lahmacun">Lahmacun</h4>
@@ -484,7 +495,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Cheese Pide">Kaşarlı Pide</h4>
@@ -497,7 +508,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Minced Meat Pide">Kıymalı Pide</h4>
@@ -510,7 +521,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Hellim Cheese Pide">Hellim Peynirli Pide</h4>
@@ -523,7 +534,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Meat Cube Pide">Kuşbaşılı Pide</h4>
@@ -536,7 +547,7 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col">
-                        <img src="https://images.unsplash.com/photo-1628315181773-e380e2270949?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" class="h-48 w-full object-cover">
                         <div class="p-4 flex flex-col flex-1 justify-between">
                             <div>
                                 <h4 class="font-bold text-lg translate" data-en="Mixed Pide">Karışık Pide</h4>
@@ -693,7 +704,19 @@
     </footer>
 
     <script>
-        // --- 1. LANGUAGE TRANSLATOR ---
+        // --- 1. MOBILE MENU TOGGLE ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+            }
+        }
+
+        // --- 2. LANGUAGE TRANSLATOR ---
         const userLang = navigator.language || navigator.userLanguage;
         if (!userLang.startsWith('tr')) {
             document.querySelectorAll('.translate').forEach(el => {
@@ -708,7 +731,7 @@
             document.getElementById('order-address').placeholder = "Your address and notes... (Please provide full details)";
         }
 
-        // --- 2. SHOPPING CART LOGIC ---
+        // --- 3. SHOPPING CART LOGIC ---
         let cart = [];
 
         function addToCart(itemName, itemPrice) {
@@ -755,7 +778,7 @@
             document.getElementById('cart-modal').classList.toggle('hidden');
         }
 
-        // --- 3. WHATSAPP ORDER GENERATOR ---
+        // --- 4. WHATSAPP ORDER GENERATOR ---
         function sendWhatsAppOrder() {
             if (cart.length === 0) {
                 alert(userLang.startsWith('tr') ? 'Sepetiniz boş!' : 'Your cart is empty!');
