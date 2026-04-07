@@ -155,8 +155,8 @@
 
     <script>
         // --- GLOBAL STATE ---
-        let currentLang = 'tr'; // Starts in Turkish
-        let globalMenuData = {}; // Stores the live data from Google Sheets
+        let currentLang = 'tr'; 
+        let globalMenuData = {}; 
 
         // --- UNBREAKABLE IMAGE DICTIONARY ---
         const imageDictionary = {
@@ -214,19 +214,17 @@
             "Pepsi (2.5 L.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80"
         };
 
-        // --- THE SANITIZER: Makes exact image matching impossible to fail ---
-        function makeSafeKey(str) {
+        // --- UTILITY FOR SAFE IDs & KEYS ---
+        function makeSafeString(str) {
             if (!str) return "";
             return str.toLowerCase().replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/[^a-z0-9]/g, '');
         }
 
-        // Pre-clean the dictionary keys so they match perfectly every time
         const cleanImageDictionary = {};
         for (const [key, url] of Object.entries(imageDictionary)) {
-            cleanImageDictionary[makeSafeKey(key)] = url;
+            cleanImageDictionary[makeSafeString(key)] = url;
         }
 
-        // Categories dictionary for the sticky nav
         const categoryDictionary = {
             "Dürüm Menüler": "Wraps", "Çorbalar": "Soups", "Kebaplar": "Kebabs", 
             "Izgaralar": "Grills", "Dönerler": "Döner", "Fırın Ürünleri": "Bakery", "İçecekler": "Beverages"
@@ -239,19 +237,16 @@
         }
 
         function toggleLanguage() {
-            currentLang = currentLang === 'tr' ? 'en' : 'tr'; // Flip language
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
             
-            // Update button text
             document.getElementById('lang-btn-text').innerText = currentLang === 'tr' ? 'EN' : 'TR';
             document.getElementById('lang-btn-mobile').innerText = currentLang === 'tr' ? 'EN' : 'TR';
 
-            // 1. Update all static headers
             document.querySelectorAll('.static-translate').forEach(el => {
                 el.innerText = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-tr');
             });
             document.getElementById('order-address').placeholder = currentLang === 'en' ? "Your address and notes... (Please provide full details)" : "Sokak, Apartman, Daire No, Kat...";
 
-            // 2. Re-draw the entire Google Sheet menu in the new language!
             renderMenu();
         }
 
@@ -264,7 +259,7 @@
                 const data = await response.text();
                 
                 const rows = data.replace(/\r/g, '').split('\n').slice(1); 
-                globalMenuData = {}; // Clear old data
+                globalMenuData = {}; 
 
                 rows.forEach(row => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
@@ -282,15 +277,13 @@
 
                     if (!nameTR || isNaN(priceTL)) return;
 
-                    // Fetch the image using the unbreakable Safe Key
-                    const safeKey = makeSafeKey(nameTR);
+                    const safeKey = makeSafeString(nameTR);
                     const imgURL = cleanImageDictionary[safeKey] || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80";
 
                     if (!globalMenuData[cat]) globalMenuData[cat] = [];
                     globalMenuData[cat].push({nameTR, nameEN, descTR, descEN, priceTL, priceEU, imgURL});
                 });
 
-                // Once data is loaded, draw the menu
                 renderMenu();
 
             } catch (e) {
@@ -299,15 +292,14 @@
             }
         }
 
-        // Renders the HTML using whichever language is currently selected
         function renderMenu() {
             const menuContainer = document.getElementById('menu-section-container');
-            if (Object.keys(globalMenuData).length === 0) return; // Do nothing if data hasn't loaded
+            if (Object.keys(globalMenuData).length === 0) return; 
 
             let navHTML = `<div class="sticky top-[72px] z-40 bg-gray-100 py-4 mb-8 flex overflow-x-auto gap-3 justify-start lg:justify-center px-2 pb-4 border-b border-gray-200 shadow-sm rounded-lg" style="scrollbar-width: none;">`;
             for (const category of Object.keys(globalMenuData)) {
                 if(!category) continue;
-                const catId = makeSafeId(category);
+                const catId = makeSafeString(category);
                 const displayCat = currentLang === 'en' ? (categoryDictionary[category] || category) : category;
                 
                 navHTML += `<a href="#cat-${catId}" class="whitespace-nowrap bg-white border border-orange-200 px-5 py-2 rounded-full text-orange-600 font-bold hover:bg-orange-600 hover:text-white transition shadow-sm">${displayCat}</a>`;
@@ -317,7 +309,7 @@
             let contentHTML = ``;
             for (const [category, items] of Object.entries(globalMenuData)) {
                 if(!category) continue;
-                const catId = makeSafeId(category);
+                const catId = makeSafeString(category);
                 const displayCat = currentLang === 'en' ? (categoryDictionary[category] || category) : category;
                 
                 contentHTML += `
@@ -329,9 +321,8 @@
                 items.forEach(item => {
                     const safeNameForCart = item.nameTR.replace(/'/g, "\\'");
                     
-                    // Determine which language to print!
-                    const displayName = currentLang === 'en' ? item.nameEN : item.nameTR;
-                    const displayDesc = currentLang === 'en' ? item.descEN : item.descTR;
+                    const displayName = currentLang === 'en' && item.nameEN ? item.nameEN : item.nameTR;
+                    const displayDesc = currentLang === 'en' && item.descEN ? item.descEN : item.descTR;
                     const displayPrice = currentLang === 'en' && item.priceEU && item.priceEU !== "undefined" 
                                             ? `${item.priceEU} (${item.priceTL} ₺)` 
                                             : `${item.priceTL} ₺`;
@@ -426,7 +417,6 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(orderText)}`, '_blank');
         }
 
-        // Initialize App!
         fetchGoogleSheetData();
 
     </script>
