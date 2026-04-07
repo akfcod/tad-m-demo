@@ -23,28 +23,18 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-orange-600">TADIM / MEMOLİ</div>
             
-            <div class="hidden md:flex space-x-6 font-medium items-center">
+            <div class="hidden md:flex space-x-8 font-medium items-center">
                 <a href="#about" class="hover:text-orange-600 transition static-translate" data-en="About Us" data-tr="Hakkımızda">Hakkımızda</a>
                 <a href="#menu" class="hover:text-orange-600 transition static-translate" data-en="Menu" data-tr="Menü">Menü</a>
                 <a href="#contact" class="hover:text-orange-600 transition static-translate" data-en="Contact" data-tr="İletişim">İletişim</a>
-                
-                <button onclick="toggleLanguage()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-bold border border-gray-300 transition shadow-sm flex items-center">
-                    <i class="fas fa-globe mr-2 text-orange-600"></i> <span id="lang-btn-text">EN</span>
-                </button>
-
                 <a href="tel:+905338656909" class="bg-orange-100 text-orange-600 px-5 py-2 rounded-full hover:bg-orange-200 transition font-bold flex items-center">
                     <i class="fas fa-phone-alt mr-2"></i> <span class="static-translate" data-en="Call" data-tr="Ara">Ara</span>
                 </a>
             </div>
 
-            <div class="md:hidden flex items-center space-x-4">
-                <button onclick="toggleLanguage()" class="bg-gray-100 text-gray-800 px-3 py-1 rounded-lg font-bold border border-gray-300">
-                    <span id="lang-btn-mobile">EN</span>
-                </button>
-                <button onclick="toggleMobileMenu()" class="text-gray-800 text-2xl focus:outline-none hover:text-orange-600 transition">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-800 text-2xl focus:outline-none hover:text-orange-600 transition">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
 
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-6 py-4 flex-col space-y-4 font-medium shadow-inner">
@@ -75,7 +65,6 @@
                 <h2 class="text-4xl font-bold mb-4 static-translate" data-en="Our Menu" data-tr="Menümüz">Menümüz</h2>
                 <p class="text-gray-600 static-translate" data-en="Select a category to jump directly to it." data-tr="Hızlıca gitmek için bir kategori seçin.">Hızlıca gitmek için bir kategori seçin.</p>
             </div>
-            
             <div id="menu-section-container">
                 <p class="text-center opacity-50 py-10 font-bold text-xl static-translate" data-en="Loading menu..." data-tr="Menü yükleniyor...">Menü yükleniyor...</p>
             </div>
@@ -127,19 +116,15 @@
                     <i class="fas fa-times text-2xl"></i>
                 </button>
             </div>
-            
             <div id="cart-items" class="flex-1 overflow-y-auto mb-4 border-b pb-4 space-y-3"></div>
-            
             <div class="mb-4">
                 <div class="flex justify-between font-bold text-2xl mb-4 text-gray-800">
                     <span class="static-translate" data-en="Total:" data-tr="Toplam:">Toplam:</span>
                     <span><span id="cart-total">0</span> ₺</span>
                 </div>
-
                 <label class="block text-gray-700 font-bold mb-2 static-translate" data-en="Full Address Details:" data-tr="Açık Adres ve Notlar:">Açık Adres ve Notlar:</label>
                 <textarea id="order-address" class="w-full border-2 border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-orange-500 transition" placeholder="Sokak, Apartman, Daire No..." rows="3"></textarea>
             </div>
-            
             <button onclick="sendWhatsAppOrder()" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-bold py-4 rounded-xl shadow-md transition flex justify-center items-center text-lg">
                 <i class="fab fa-whatsapp text-2xl mr-2"></i> <span class="static-translate" data-en="Complete Order via WhatsApp" data-tr="Siparişi Tamamla">Siparişi Tamamla</span>
             </button>
@@ -154,11 +139,10 @@
     </footer>
 
     <script>
-        // --- GLOBAL STATE ---
-        let currentLang = 'tr'; 
-        let globalMenuData = {}; 
+        // --- AUTO LANGUAGE DETECTION ---
+        const userLang = navigator.language || navigator.userLanguage;
+        let currentLang = userLang.startsWith('tr') ? 'tr' : 'en';
 
-        // --- UNBREAKABLE IMAGE DICTIONARY ---
         const imageDictionary = {
             "Adana Dürüm Menü": "https://images.unsplash.com/photo-1626804475297-4160aeea1a52?auto=format&fit=crop&w=600&q=80",
             "Urfa Dürüm Menü": "https://images.unsplash.com/photo-1626804475297-4160aeea1a52?auto=format&fit=crop&w=600&q=80",
@@ -168,30 +152,25 @@
             "Et Döner Dürüm Menü": "https://images.unsplash.com/photo-1626804475297-4160aeea1a52?auto=format&fit=crop&w=600&q=80",
             "Karışık Döner Dürüm Menü": "https://images.unsplash.com/photo-1626804475297-4160aeea1a52?auto=format&fit=crop&w=600&q=80",
             "Ciğer Dürüm": "https://images.unsplash.com/photo-1626804475297-4160aeea1a52?auto=format&fit=crop&w=600&q=80",
-
             "Tavuk Çorbası": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80",
             "Mercimek Çorbası": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80",
             "Kelle Paça Çorbası": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80",
             "Beyran Çorbası": "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80",
-
             "Adana Kebap (300 gr.)": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Urfa Kebap (300 gr.)": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Sarma Beyti (300 gr.)": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Karışık Kebap": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Ciğer Şiş": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
-
             "Tavuk Şiş (300 gr.)": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Tavuk Kanat (7 Adet)": "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=600&q=80",
             "Kuzu Şiş (300 gr.)": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
             "Izgara Ciğer": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
-
             "Tavuk Döner (170 gr.)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "Et Döner (170 gr.)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "Karışık Döner (170 gr.)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "İskender (Tavuk Dönerden)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "İskender (Et Dönerden)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
             "Karışık İskender (170 gr.)": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80",
-            
             "Kıbrıs pidesinde Karışık Döner": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Kıbrıs Pidesinde Et Döner": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Kıbrıs Pidesinde Tavuk Döner": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
@@ -201,7 +180,6 @@
             "Hellim Peynirli Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Kuşbaşılı Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
             "Karışık Pide": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
-
             "Pepsi (33 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
             "Pepsi Light (33 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
             "Pepsi Max (33 cl.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
@@ -214,7 +192,6 @@
             "Pepsi (2.5 L.)": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80"
         };
 
-        // --- UTILITY FOR SAFE IDs & KEYS ---
         function makeSafeString(str) {
             if (!str) return "";
             return str.toLowerCase().replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/[^a-z0-9]/g, '');
@@ -230,195 +207,104 @@
             "Izgaralar": "Grills", "Dönerler": "Döner", "Fırın Ürünleri": "Bakery", "İçecekler": "Beverages"
         };
 
-        // --- TOGGLES ---
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
             document.getElementById('mobile-menu').classList.toggle('flex');
         }
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'tr' ? 'en' : 'tr';
-            
-            document.getElementById('lang-btn-text').innerText = currentLang === 'tr' ? 'EN' : 'TR';
-            document.getElementById('lang-btn-mobile').innerText = currentLang === 'tr' ? 'EN' : 'TR';
-
+        function applyLanguage() {
             document.querySelectorAll('.static-translate').forEach(el => {
                 el.innerText = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-tr');
             });
-            document.getElementById('order-address').placeholder = currentLang === 'en' ? "Your address and notes... (Please provide full details)" : "Sokak, Apartman, Daire No, Kat...";
-
-            renderMenu();
+            document.getElementById('order-address').placeholder = currentLang === 'en' ? "Your address and notes..." : "Sokak, Apartman, Daire No, Kat...";
         }
 
-        // --- GOOGLE SHEETS FETCH AND RENDER ---
         const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRyawZm1sQhJyyLVSxVY8xyMQQG3Dbxpbr7gQHl1UPGGSSezid8ETF_pKcgX67K34kHUpPUhn5u5b4Z/pub?output=csv"; 
+        let globalMenuData = {};
 
         async function fetchGoogleSheetData() {
             try {
                 const response = await fetch(sheetURL);
                 const data = await response.text();
-                
                 const rows = data.replace(/\r/g, '').split('\n').slice(1); 
                 globalMenuData = {}; 
 
                 rows.forEach(row => {
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if(cols.length < 6) return;
-
                     const cat = cols[0]?.replace(/"/g, "")?.trim();
                     const nameTR = cols[1]?.replace(/"/g, "")?.trim();
                     const nameEN = cols[2]?.replace(/"/g, "")?.trim();
                     const descTR = cols[3]?.replace(/"/g, "")?.trim();
                     const descEN = cols[4]?.replace(/"/g, "")?.trim();
-
                     let rawPrice = cols[5]; 
                     let priceEU = cols[6]?.replace(/"/g, "")?.trim();
                     const priceTL = parseInt(rawPrice?.replace(/[^0-9]/g, ""));
-
                     if (!nameTR || isNaN(priceTL)) return;
-
-                    const safeKey = makeSafeString(nameTR);
-                    const imgURL = cleanImageDictionary[safeKey] || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80";
-
+                    const imgURL = cleanImageDictionary[makeSafeString(nameTR)] || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80";
                     if (!globalMenuData[cat]) globalMenuData[cat] = [];
                     globalMenuData[cat].push({nameTR, nameEN, descTR, descEN, priceTL, priceEU, imgURL});
                 });
-
                 renderMenu();
-
             } catch (e) {
-                console.error("Google Sheets Error: ", e);
-                document.getElementById('menu-section-container').innerHTML = "<p class='text-red-500 font-bold text-center'>Sistem Hatası: Menü Yüklenemedi.</p>";
+                document.getElementById('menu-section-container').innerHTML = "Menü yüklenemedi.";
             }
         }
 
         function renderMenu() {
             const menuContainer = document.getElementById('menu-section-container');
-            if (Object.keys(globalMenuData).length === 0) return; 
-
             let navHTML = `<div class="sticky top-[72px] z-40 bg-gray-100 py-4 mb-8 flex overflow-x-auto gap-3 justify-start lg:justify-center px-2 pb-4 border-b border-gray-200 shadow-sm rounded-lg" style="scrollbar-width: none;">`;
             for (const category of Object.keys(globalMenuData)) {
-                if(!category) continue;
                 const catId = makeSafeString(category);
                 const displayCat = currentLang === 'en' ? (categoryDictionary[category] || category) : category;
-                
                 navHTML += `<a href="#cat-${catId}" class="whitespace-nowrap bg-white border border-orange-200 px-5 py-2 rounded-full text-orange-600 font-bold hover:bg-orange-600 hover:text-white transition shadow-sm">${displayCat}</a>`;
             }
             navHTML += `</div>`;
-
             let contentHTML = ``;
             for (const [category, items] of Object.entries(globalMenuData)) {
-                if(!category) continue;
                 const catId = makeSafeString(category);
                 const displayCat = currentLang === 'en' ? (categoryDictionary[category] || category) : category;
-                
-                contentHTML += `
-                <div id="cat-${catId}" class="mb-16 category-section pt-10 -mt-10">
-                    <h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8">${displayCat}</h3>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                `;
-
+                contentHTML += `<div id="cat-${catId}" class="mb-16 category-section pt-10 -mt-10"><h3 class="text-2xl font-bold border-b-4 border-orange-500 inline-block pb-2 mb-8">${displayCat}</h3><div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">`;
                 items.forEach(item => {
-                    const safeNameForCart = item.nameTR.replace(/'/g, "\\'");
-                    
-                    const displayName = currentLang === 'en' && item.nameEN ? item.nameEN : item.nameTR;
-                    const displayDesc = currentLang === 'en' && item.descEN ? item.descEN : item.descTR;
-                    const displayPrice = currentLang === 'en' && item.priceEU && item.priceEU !== "undefined" 
-                                            ? `${item.priceEU} (${item.priceTL} ₺)` 
-                                            : `${item.priceTL} ₺`;
-                    const btnText = currentLang === 'en' ? "Add" : "Ekle";
-
-                    contentHTML += `
-                        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg">
-                            <img src="${item.imgURL}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80';" class="h-48 w-full object-cover">
-                            <div class="p-5 flex flex-col flex-1 justify-between">
-                                <div>
-                                    <h4 class="font-bold text-lg">${displayName}</h4>
-                                    <p class="text-gray-500 text-sm mt-2">${displayDesc}</p>
-                                </div>
-                                <div class="flex justify-between items-center mt-5 pt-4 border-t">
-                                    <span class="font-extrabold text-orange-600 text-xl">${displayPrice}</span>
-                                    <button onclick="addToCart('${safeNameForCart}', ${item.priceTL})" class="bg-orange-100 text-orange-600 px-4 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition">
-                                        ${btnText}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    const displayName = currentLang === 'en' ? item.nameEN : item.nameTR;
+                    const displayDesc = currentLang === 'en' ? item.descEN : item.descTR;
+                    const displayPrice = currentLang === 'en' && item.priceEU !== "undefined" ? `${item.priceEU} (${item.priceTL} ₺)` : `${item.priceTL} ₺`;
+                    contentHTML += `<div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 flex flex-col transition hover:shadow-lg"><img src="${item.imgURL}" onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80';" class="h-48 w-full object-cover"><div class="p-5 flex flex-col flex-1 justify-between"><div><h4 class="font-bold text-lg">${displayName}</h4><p class="text-gray-500 text-sm mt-2">${displayDesc}</p></div><div class="flex justify-between items-center mt-5 pt-4 border-t"><span class="font-extrabold text-orange-600 text-xl">${displayPrice}</span><button onclick="addToCart('${item.nameTR.replace(/'/g, "\\'")}', ${item.priceTL})" class="bg-orange-100 text-orange-600 px-4 py-2 rounded-lg font-bold hover:bg-orange-600 hover:text-white transition">${currentLang === 'en' ? 'Add' : 'Ekle'}</button></div></div></div>`;
                 });
                 contentHTML += `</div></div>`;
             }
-
             menuContainer.innerHTML = navHTML + contentHTML;
         }
 
-        // --- SHOPPING CART LOGIC ---
         let cart = [];
-
-        function addToCart(itemName, itemPrice) {
-            cart.push({ name: itemName, price: parseInt(itemPrice) });
-            updateCartUI();
-            if(cart.length === 1) toggleCart();
-        }
-
-        function updateCartUI() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
-            const cartCount = document.getElementById('cart-count');
-            const cartFab = document.getElementById('cart-fab');
-
-            cartCount.innerText = cart.length;
-            if (cart.length > 0) cartFab.classList.remove('hidden');
-            else cartFab.classList.add('hidden');
-
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-
-            cart.forEach((item, index) => {
-                total += item.price;
-                cartItemsContainer.innerHTML += `
-                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
-                        <span class="font-medium text-gray-800">${item.name}</span>
-                        <div class="flex items-center">
-                            <span class="font-bold text-orange-600 mr-4">${item.price} ₺</span>
-                            <button onclick="removeFromCart(${index})" class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                `;
+        function addToCart(n, p) { cart.push({name:n, price:p}); updateUI(); if(cart.length===1) toggleCart(); }
+        function updateUI() {
+            const items = document.getElementById('cart-items');
+            document.getElementById('cart-count').innerText = cart.length;
+            if(cart.length>0) document.getElementById('cart-fab').classList.remove('hidden');
+            else document.getElementById('cart-fab').classList.add('hidden');
+            items.innerHTML = ''; let t = 0;
+            cart.forEach((item, i) => {
+                t += item.price;
+                items.innerHTML += `<div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100"><span>${item.name}</span><div class="flex items-center"><span class="font-bold mr-4">${item.price} ₺</span><button onclick="remove(${i})"><i class="fas fa-trash text-gray-400"></i></button></div></div>`;
             });
-            cartTotal.innerText = total;
+            document.getElementById('cart-total').innerText = t;
         }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-            if(cart.length === 0) toggleCart();
-        }
-
-        function toggleCart() {
-            document.getElementById('cart-modal').classList.toggle('hidden');
-        }
-
-        // --- WHATSAPP ORDER LOGIC ---
+        function remove(i) { cart.splice(i,1); updateUI(); if(cart.length===0) toggleCart(); }
+        function toggleCart() { document.getElementById('cart-modal').classList.toggle('hidden'); }
         function sendWhatsAppOrder() {
-            if (cart.length === 0) return alert(currentLang === 'tr' ? 'Sepetiniz boş!' : 'Your cart is empty!');
-            
-            const address = document.getElementById('order-address').value;
-            
-            if (!address.trim()) return alert(currentLang === 'tr' ? 'Lütfen açık adresinizi yazınız.' : 'Please enter your full address details.');
-
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-
-            let orderText = "🍔 *YENİ SİPARİŞ* (Websiteden)\n\n";
-            cart.forEach(item => orderText += `▪️ ${item.name} - ${item.price} ₺\n`);
-            orderText += `\n💰 *TOPLAM: ${total} ₺*\n\n🏠 *Adres/Not:* ${address}`;
-
-            const phone = "905338656909";
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(orderText)}`, '_blank');
+            if(cart.length===0) return alert('Empty!');
+            const a = document.getElementById('order-address').value;
+            if(!a.trim()) return alert('Address!');
+            let total = cart.reduce((s, i) => s + i.price, 0);
+            let msg = "*YENİ SİPARİŞ*\n\n";
+            cart.forEach(i => msg += `▪️ ${i.name} - ${i.price} ₺\n`);
+            msg += `\n💰 *TOPLAM: ${total} ₺*\n🏠 *Adres:* ${a}`;
+            window.open(`https://wa.me/905338656909?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
+        applyLanguage();
         fetchGoogleSheetData();
-
     </script>
 </body>
 </html>
